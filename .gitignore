@@ -58,3 +58,25 @@ yarn-debug.log*
 .1024*
 !.1024
 .breakpoints
+
+# Development environment
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# OS files
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+
+# Additional Rails 7 build outputs
+/public/builds
+/tmp/cache/bootsnap/
