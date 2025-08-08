@@ -1,10 +1,14 @@
 @use 'bootstrap_custom';
 @use 'fontawsome_custom';
 @use 'libs/markdown';
+@use 'gradient_theme';
+@use 'gradient_buttons';
+@use 'gradient_animations';
 
 @use 'aboutme_welcome';
 @use 'archives';
 @use 'blogs';
+@use 'home_layout';
 @use 'head';
 @use 'qrcodes';
 @use 'comments';
