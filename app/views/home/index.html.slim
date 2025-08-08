@@ -9,22 +9,25 @@
       - unless @newest
         = render 'common/no_blog_here'
       - else
-        = render partial: 'post_head', locals: { post: @newest }
-        .content.markdown
-          == @newest.sub_content
-          = link_to t('home.read'), blog_path(@newest), class: 'read-more'
-          p.published-at #{t('home.created_at')} #{format_date(@newest.created_at)}
+        .main-post-card
+          = render partial: 'post_head', locals: { post: @newest }
+          .content.markdown
+            == @newest.sub_content
+            = link_to t('home.read'), blog_path(@newest), class: 'read-more'
+            p.published-at #{t('home.created_at')} #{format_date(@newest.created_at)}
 
         - if @recent.present?
           h4.recent-title #{t('home.recent')}
-          ul.recent-content
-            - @recent.each do |re|
-              li = link_to re.title, blog_path(re)
+          .recent-content
+            ul
+              - @recent.each do |re|
+                li = link_to re.title, blog_path(re)
 
     .col-lg-4.self-introduce
-      / Adjust it in common/welcome
-      = render 'common/welcome'
-      h4 #{t('subscribes.title')}
-      .row
-        .col-12.col-md-6.col-lg-12
-          = image_tag 'wechat_qrcode.jpg', class: 'wechat_qrcode'
+      .welcome-card
+        / Adjust it in common/welcome
+        = render 'common/welcome'
+        h4 #{t('subscribes.title')}
+        .row
+          .col-12.col-md-6.col-lg-12
+            = image_tag 'wechat_qrcode.jpg', class: 'wechat_qrcode'

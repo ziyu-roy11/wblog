@@ -1,0 +1,255 @@
+// ============================================================================
+// WBlog 渐变色彩主题系统
+// Modern Gradient Color Theme for WBlog Frontend
+// ============================================================================
+
+// 渐变色彩变量定义 / Gradient Color Variables
+// ============================================================================
+
+// 主题色彩系统 / Primary Color System
+$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-primary-light: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+$gradient-primary-dark: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+
+// 辅助渐变 / Secondary Gradients
+$gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$gradient-secondary-light: linear-gradient(135deg, rgba(240, 147, 251, 0.8) 0%, rgba(245, 87, 108, 0.8) 100%);
+
+// 背景渐变 / Background Gradients
+$gradient-background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+$gradient-background-light: linear-gradient(135deg, rgba(168, 237, 234, 0.3) 0%, rgba(254, 214, 227, 0.3) 100%);
+$gradient-background-subtle: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+
+// 卡片渐变 / Card Gradients
+$gradient-card: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+$gradient-card-hover: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+
+// 导航栏渐变 / Navigation Gradients
+$gradient-navbar: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(49, 71, 85, 0.95) 100%);
+$gradient-navbar-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+
+// 按钮渐变 / Button Gradients
+$gradient-button-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-button-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$gradient-button-success: linear-gradient(135deg, #56cc9d 0%, #6bb77b 100%);
+$gradient-button-info: linear-gradient(135deg, #3fc5f0 0%, #1e3c72 100%);
+
+// 阴影渐变 / Shadow Gradients
+$shadow-gradient-soft: 0 4px 15px 0 rgba(102, 126, 234, 0.2);
+$shadow-gradient-medium: 0 8px 25px 0 rgba(102, 126, 234, 0.3);
+$shadow-gradient-strong: 0 15px 35px 0 rgba(102, 126, 234, 0.4);
+
+// 文本渐变 / Text Gradients
+$gradient-text-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-text-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+
+// Mixins 工具函数 / Utility Mixins
+// ============================================================================
+
+// 基础渐变背景 / Basic Gradient Background
+@mixin gradient-bg($gradient) {
+  background: $gradient;
+}
+
+// 渐变文本 / Gradient Text
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+// 渐变边框 / Gradient Border
+@mixin gradient-border($gradient, $width: 2px, $radius: 8px) {
+  position: relative;
+  border-radius: $radius;
+  background: $gradient;
+  padding: $width;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: $width;
+    left: $width;
+    right: $width;
+    bottom: $width;
+    background: white;
+    border-radius: calc(#{$radius} - #{$width});
+  }
+}
+
+// 毛玻璃效果 / Glass Morphism Effect
+@mixin glass-effect($bg-opacity: 0.1, $blur: 10px) {
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  background: rgba(255, 255, 255, $bg-opacity);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// 卡片阴影效果 / Card Shadow Effect
+@mixin card-shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: $shadow-gradient-soft;
+  } @else if $level == 2 {
+    box-shadow: $shadow-gradient-medium;
+  } @else if $level == 3 {
+    box-shadow: $shadow-gradient-strong;
+  }
+}
+
+// 悬停动画效果 / Hover Animation Effect
+@mixin hover-lift($duration: 0.3s) {
+  transition: all $duration ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-gradient-medium;
+  }
+}
+
+// 渐变按钮 / Gradient Button
+@mixin gradient-button($gradient, $hover-gradient: null) {
+  @include gradient-bg($gradient);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: $shadow-gradient-soft;
+  
+  &:hover {
+    @if $hover-gradient {
+      @include gradient-bg($hover-gradient);
+    } @else {
+      opacity: 0.9;
+    }
+    transform: translateY(-2px);
+    box-shadow: $shadow-gradient-medium;
+    color: white;
+    text-decoration: none;
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-gradient-soft;
+  }
+}
+
+// 响应式渐变 / Responsive Gradients
+@mixin responsive-gradient($mobile-gradient, $desktop-gradient) {
+  @include gradient-bg($mobile-gradient);
+  
+  @media (min-width: 768px) {
+    @include gradient-bg($desktop-gradient);
+  }
+}
+
+// 动画关键帧 / Animation Keyframes
+// ============================================================================
+
+// 渐变色彩流动动画 / Gradient Flow Animation
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// 渐变闪烁动画 / Gradient Shimmer Animation
+@keyframes gradient-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+// 浮动动画 / Float Animation
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// 脉冲动画 / Pulse Animation
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+
+// 实用工具类 / Utility Classes
+// ============================================================================
+
+// 渐变背景工具类 / Gradient Background Utilities
+.bg-gradient-primary {
+  @include gradient-bg($gradient-primary);
+}
+
+.bg-gradient-secondary {
+  @include gradient-bg($gradient-secondary);
+}
+
+.bg-gradient-background {
+  @include gradient-bg($gradient-background);
+}
+
+.bg-gradient-card {
+  @include gradient-bg($gradient-card);
+}
+
+// 渐变文本工具类 / Gradient Text Utilities
+.text-gradient-primary {
+  @include gradient-text($gradient-text-primary);
+}
+
+.text-gradient-secondary {
+  @include gradient-text($gradient-text-secondary);
+}
+
+// 阴影工具类 / Shadow Utilities
+.shadow-gradient-soft {
+  box-shadow: $shadow-gradient-soft;
+}
+
+.shadow-gradient-medium {
+  box-shadow: $shadow-gradient-medium;
+}
+
+.shadow-gradient-strong {
+  box-shadow: $shadow-gradient-strong;
+}
+
+// 动画工具类 / Animation Utilities
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 3s ease infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}

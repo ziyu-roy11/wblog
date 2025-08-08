@@ -4,16 +4,56 @@
   }
 
   .box {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-radius: 20px;
+    padding: 2rem;
     margin-bottom: 2rem;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.18);
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 400;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: #2d3748;
+    position: relative;
+    
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  p, .aboutme-index {
-    color: #5D5D5D;
+  p {
+    color: #4a5568;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .aboutme-index {
+    color: #4a5568;
   }
 }
 
@@ -21,12 +61,146 @@
   list-style-type: none;
   margin-left: 0;
   padding-left: 0;
+  
   li {
     margin-left: 0;
-    padding-bottom: 0.5rem;
+    padding: 0.8rem 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    &:hover {
+      padding-left: 1rem;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+      border-radius: 10px;
+      margin: 0.2rem -0.5rem;
+      
+      &::before {
+        opacity: 1;
+      }
+    }
+    
     span {
-      &:first-child{
-        margin-right: 0.5rem;
+      &:first-child {
+        margin-right: 1rem;
+        font-weight: 600;
+        color: #667eea;
+        min-width: 60px;
+        display: inline-block;
+      }
+      
+      &:last-child {
+        flex: 1;
+        color: #4a5568;
+        
+        a {
+          color: #667eea;
+          text-decoration: none;
+          font-weight: 500;
+          position: relative;
+          transition: all 0.3s ease;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+          }
+          
+          &:hover {
+            color: #5a67d8;
+            text-decoration: none;
+            
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 特殊装饰元素
+.self-introduce {
+  // 浮动装饰
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    z-index: -1;
+  }
+  
+  // 订阅区域特殊样式
+  .subscription-section {
+    text-align: center;
+    
+    h4 {
+      margin-bottom: 2rem;
+    }
+    
+    .wechat_qrcode {
+      transition: all 0.4s ease;
+      filter: grayscale(0.2);
+      
+      &:hover {
+        filter: grayscale(0);
+        transform: scale(1.05) rotate(2deg);
+      }
+    }
+  }
+}
+
+// 响应式优化
+@media (max-width: 767.98px) {
+  .self-introduce {
+    margin-top: 2rem;
+    
+    .box {
+      padding: 1.5rem;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 1.2rem;
+    }
+    
+    .aboutme-index li {
+      flex-direction: column;
+      align-items: flex-start;
+      
+      span:first-child {
+        margin-bottom: 0.5rem;
+        min-width: auto;
       }
     }
   }

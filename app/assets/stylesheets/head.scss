@@ -1,13 +1,130 @@
 .my-navbar {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  position: relative;
+  
+  // 渐变背景和毛玻璃效果
+  background: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(49, 71, 85, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+  
+  // 渐变覆盖层
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+  }
 
-  a.navbar-brand:hover {
-    color: #aaa;
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    
+    &:hover {
+      color: #f8f9ff !important;
+      text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+      transform: scale(1.05);
+    }
   }
 
   .nav-link {
-    padding-right: 0.75rem !important;
-    padding-left: 0.75rem !important;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    margin: 0 0.25rem;
+    
+    &:hover {
+      color: #ffffff !important;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+  }
+  
+  .fa-search {
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+    }
+  }
+}
+
+// 响应式设计优化
+@media (max-width: 991.98px) {
+  .my-navbar {
+    .navbar-collapse {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 15px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      
+      .nav-link {
+        margin: 0.25rem 0;
+        padding: 0.75rem 1rem !important;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+// 固定导航栏效果（可选）
+.navbar-fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  transition: all 0.3s ease;
+  
+  &.scrolled {
+    background: linear-gradient(135deg, rgba(26, 35, 126, 0.98) 0%, rgba(49, 71, 85, 0.98) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
   }
 }

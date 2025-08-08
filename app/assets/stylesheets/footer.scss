@@ -1,16 +1,132 @@
 .footer {
-  border-top: 1px solid #dddddd;
-  padding: 1rem 0 2rem;
-  text-align: right;
-  color: #666;
+  background: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(49, 71, 85, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+  
+  // 渐变覆盖层
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    pointer-events: none;
+  }
+  
+  // 装饰性背景图案
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23667eea" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+    animation: float 20s linear infinite;
+    z-index: -1;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+  
   .link {
-    margin-right: 1rem;
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .license {
-    margin-top: 1rem;
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    position: relative;
+    
+    &:first-of-type {
+      margin-top: 2rem;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 1px;
+      }
+    }
+    
     span {
       margin-left: 0.5rem;
+      
+      a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          transition: width 0.3s ease;
+        }
+        
+        &:hover {
+          color: #ffffff;
+          text-decoration: none;
+          text-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
+          
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 767.98px) {
+  .footer {
+    padding: 2rem 0;
+    
+    .link {
+      font-size: 1.1rem;
+    }
+    
+    .license {
+      font-size: 0.9rem;
+      
+      span {
+        display: block;
+        margin: 0.5rem 0;
+      }
     }
   }
 }
